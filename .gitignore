@@ -1,2 +1,3 @@
-    __pycache__/
-    *.pyc
+_/_pycache__/
+*.pyc
+app/__pycache__/main.cpython-313.pyc
