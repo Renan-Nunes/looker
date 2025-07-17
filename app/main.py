@@ -1,7 +1,5 @@
 from fastapi import FastAPI
+from app.routes import routes
 
 app = FastAPI()
-
-@app.get("/")
-def root():
-    return {"message": "API rodando!"}
+app.include_router(routes.api_router, prefix="/api/v1")
