@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from core.db_usuario import SessionLocal
-from schemas.usuario_schema import UsuarioCreate, UsuarioOut
-from controllers import usuario_controller
+from app.core.db_usuario import SessionLocal
+from app.schemas.schemas_user import userCreate, userOut
+from app.controllers import controller_user
 
-router = APIRouter(prefix="/usuarios", tags=["Usuários"])
+router = APIRouter(prefix="/users", tags=["Usuários"])
+
 
 def get_db():
     db = SessionLocal()
@@ -13,31 +14,36 @@ def get_db():
     finally:
         db.close()
 
-@router.post("/", response_model=UsuarioOut)
-def criar_usuario(dados: UsuarioCreate, db: Session = Depends(get_db)):
-    return usuario_controller.criar_usuario(db, dados)
 
-@router.get("/", response_model=list[UsuarioOut])
-def listar_usuarios(db: Session = Depends(get_db)):
-    return usuario_controller.listar_usuarios(db)
+@router.post("/", response_model=userOut)
+def create_user(data: userCreate, db: Session = Depends(get_db)):
+    return controller_user.create_user(db, data)
 
-@router.get("/{usuario_id}", response_model=UsuarioOut)
-def obter_usuario(usuario_id: int, db: Session = Depends(get_db)):
-    usuario = usuario_controller.obter_usuario(db, usuario_id)
-    if not usuario:
+
+@router.get("/", response_model=list[userOut])
+def list_users(db: Session = Depends(get_db)):
+    return controller_user.list_users(db)
+
+
+@router.get("/{user_id}", response_model=userOut)
+def obter_user(user_id: int, db: Session = Depends(get_db)):
+    user = controller_user.obter_user(db, user_id)
+    if not user:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
-    return usuario
+    return user
 
-@router.put("/update/{usuario_id}", response_model=UsuarioOut)
-def atualizar_usuario(usuario_id: int, dados: UsuarioCreate, db: Session = Depends(get_db)):
-    usuario = usuario_controller.atualizar_usuario(db, usuario_id, dados)
-    if not usuario:
+
+@router.put("/update/{user_id}", response_model=userOut)
+def update_user(user_id: int, data: userCreate, db: Session = Depends(get_db)):
+    user = controller_user.update_user(db, user_id, data)
+    if not user:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
-    return usuario
+    return user
 
-@router.delete("/delete/{usuario_id}")
-def deletar_usuario(usuario_id: int, db: Session = Depends(get_db)):
-    usuario = usuario_controller.deletar_usuario(db, usuario_id)
-    if not usuario:
+
+@router.delete("/delete/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    user = controller_user.delete_user(db, user_id)
+    if not user:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
     return {"message": "Usuário deletado com sucesso"}
