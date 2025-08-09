@@ -1,12 +1,14 @@
 package com.example.demo.Domain.Security.Auth;
 
 
+import com.example.demo.Domain.Security.Dto.CreateUserDTO;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/v1/api")
@@ -19,7 +21,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody CreateUserDTO request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody @Valid CreateUserDTO request) {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
