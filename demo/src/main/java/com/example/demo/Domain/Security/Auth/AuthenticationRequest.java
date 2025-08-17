@@ -1,5 +1,6 @@
 package com.example.demo.Domain.Security.Auth;
 
+
 public class AuthenticationRequest {
     private String email;
     private String password;

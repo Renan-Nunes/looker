@@ -1,7 +1,10 @@
 package com.example.demo.Domain.Security.Auth;
 
 
+import com.example.demo.Domain.Security.Config.JwtService;
 import com.example.demo.Domain.Security.Dto.CreateUserDTO;
+import com.example.demo.Domain.Security.Dto.ValidateRequest;
+import com.example.demo.Domain.Security.Dto.ValidateResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final JwtService jwtService;
 
-    public AuthenticationController(AuthenticationService authenticationService) {
+    public AuthenticationController(AuthenticationService authenticationService, JwtService jwtService) {
         this.authenticationService = authenticationService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/register")
@@ -28,5 +33,12 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<ValidateResponseDTO> validateToken(@RequestBody ValidateRequest request) {
+        var result = jwtService.extractClaim(request.token(), claims -> claims.get);
+        ValidateResponseDTO result2 = new ValidateResponseDTO(1, "pedro", result);
+        return ResponseEntity.ok(result2);
     }
 }

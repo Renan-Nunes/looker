@@ -27,7 +27,8 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/v1/api/register",       // rota de registro
                                 "/v1/api/authenticate",   // rota de login
-                                "/api/v1/auth/**"         // se você estiver usando essa também
+                                "/api/v1/auth/**",
+                                "/v1/api/validate"// se você estiver usando essa também
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

@@ -1,6 +1,5 @@
 package com.example.demo.Domain.Security.Auth;
 
-
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 
 public class AuthenticationResponse {
