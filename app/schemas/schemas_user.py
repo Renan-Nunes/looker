@@ -1,11 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import date
-from sqlalchemy import Enum
-
-
-class RoleEnum(str, Enum):
-    admin = "admin"
-    user = "user"
+from app.models.models_user import RoleEnum
 
 
 class UserCreate(BaseModel):
@@ -28,4 +23,4 @@ class UserOut(BaseModel):
     role: RoleEnum
 
     class Config:
-        orm_mode = True
+        from_attributes = True
