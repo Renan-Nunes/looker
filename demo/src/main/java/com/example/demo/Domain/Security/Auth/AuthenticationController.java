@@ -3,7 +3,7 @@ package com.example.demo.Domain.Security.Auth;
 
 import com.example.demo.Domain.Security.Config.JwtService;
 import com.example.demo.Domain.Security.Dto.CreateUserDTO;
-import com.example.demo.Domain.Security.Dto.ValidateRequest;
+import com.example.demo.Domain.Security.Dto.ValidateRequestDTO;
 import com.example.demo.Domain.Security.Dto.ValidateResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +36,9 @@ public class AuthenticationController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<ValidateResponseDTO> validateToken(@RequestBody ValidateRequest request) {
-        var result = jwtService.extractClaim(request.token(), claims -> claims.get);
-        ValidateResponseDTO result2 = new ValidateResponseDTO(1, "pedro", result);
+    public ResponseEntity<ValidateResponseDTO> validateToken(@RequestBody ValidateRequestDTO request) {
+        var role = jwtService.extractClaim(request.token(), claims -> claims.get("role", String.class));
+        ValidateResponseDTO result2 = new ValidateResponseDTO(1, "pedro", role);
         return ResponseEntity.ok(result2);
     }
 }

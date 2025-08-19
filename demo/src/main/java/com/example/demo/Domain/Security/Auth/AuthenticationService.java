@@ -10,6 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 import com.example.demo.Domain.Security.Model.Role;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class AuthenticationService {
     private final UserRepository userRepository;
@@ -29,7 +32,10 @@ public class AuthenticationService {
 
         userRepository.save(user);
 
-        return new AuthenticationResponse(jwtService.generateToken(user));
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("role", user.getRole().name());
+
+        return new AuthenticationResponse(jwtService.generateToken(extraClaims, user));
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
