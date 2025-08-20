@@ -9,12 +9,14 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 @Component
-public class JwtDecodeFilter implements GlobalFilter, Ordered {
+public class JwtDecodeFilter implements WebFilter, Ordered {
 
     private static final String secretKey = "0e1110b29e5cab1d172a006d08b8c7c1c4225c039e213dc14ce1cf1675d3e9f3";
 
@@ -23,6 +25,7 @@ public class JwtDecodeFilter implements GlobalFilter, Ordered {
             "/auth/v1/api/register/",
             "/auth/v1/api/login",
             "/auth/v1/api/login/"
+"
     );
 
     @Override
@@ -31,17 +34,15 @@ public class JwtDecodeFilter implements GlobalFilter, Ordered {
     }
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getPath().toString();
         System.out.println("JwtDecodeFilter: Path recebido: " + path);
 
-        // Verificar primeiro se é uma rota pública
         if (openPaths.stream().anyMatch(path::equals) || openPaths.stream().anyMatch(path::startsWith)) {
             System.out.println("JwtDecodeFilter: Liberando rota pública: " + path);
             return chain.filter(exchange);
         }
 
-        // A partir daqui, só trata rotas protegidas
         String authHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
@@ -60,7 +61,6 @@ public class JwtDecodeFilter implements GlobalFilter, Ordered {
             }
         }
 
-        // Se chegou aqui, é uma rota protegida sem token
         exchange.getResponse().setStatusCode(org.springframework.http.HttpStatus.UNAUTHORIZED);
         return exchange.getResponse().setComplete();
     }
