@@ -38,7 +38,7 @@ public class AuthenticationController {
     @PostMapping("/validate")
     public ResponseEntity<ValidateResponseDTO> validateToken(@RequestBody ValidateRequestDTO request) {
         var role = jwtService.extractClaim(request.token(), claims -> claims.get("role", String.class));
-        ValidateResponseDTO result2 = new ValidateResponseDTO(1, "pedro", role);
-        return ResponseEntity.ok(result2);
+        ValidateResponseDTO responseDTO = new ValidateResponseDTO(1, "pedro", role);
+        return ResponseEntity.ok(responseDTO);
     }
 }
