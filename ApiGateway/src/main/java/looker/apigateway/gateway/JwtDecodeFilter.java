@@ -25,7 +25,6 @@ public class JwtDecodeFilter implements WebFilter, Ordered {
             "/auth/v1/api/register/",
             "/auth/v1/api/login",
             "/auth/v1/api/login/"
-"
     );
 
     @Override

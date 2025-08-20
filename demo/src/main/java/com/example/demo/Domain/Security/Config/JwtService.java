@@ -1,6 +1,8 @@
 package com.example.demo.Domain.Security.Config;
 
 
+import com.example.demo.Domain.Security.Model.Role;
+import com.example.demo.Domain.Security.Model.UserModel;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,11 +31,13 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        return generateToken(new HashMap<>(), (UserModel) userDetails);
     }
 
-    public String generateToken(
-            Map<String, Object> extraClaims, UserDetails userDetails) {
+    public String generateToken(Map<String, Object> extraClaims, UserModel userDetails) {
+        String role = (userDetails.getRole().equals(Role.USER)) ? "ADMIN" : "USER";
+        extraClaims.put("role", role);
+
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
@@ -43,6 +47,8 @@ public class JwtService {
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
+
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);

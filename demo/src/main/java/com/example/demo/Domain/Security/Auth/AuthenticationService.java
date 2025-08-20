@@ -27,26 +27,8 @@ public class AuthenticationService {
         this.userRepository = userRepository;
     }
 
-    public AuthenticationResponse register(CreateUserDTO request) {
-        UserModel user = new UserModel(null, request.name(), request.password(), request.email(), Role.USER);
-
-        userRepository.save(user);
-
-        Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("role", user.getRole().name());
-
-        return new AuthenticationResponse(jwtService.generateToken(extraClaims, user));
-    }
-
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        UserModel user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-
+        UserModel user = new UserModel(request.getPassword(), request.getEmail(), request.getRole());
         return new AuthenticationResponse(jwtService.generateToken(user));
     }
 

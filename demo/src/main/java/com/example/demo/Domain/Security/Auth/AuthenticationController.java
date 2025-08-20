@@ -18,16 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
-    private final JwtService jwtService;
 
     public AuthenticationController(AuthenticationService authenticationService, JwtService jwtService) {
         this.authenticationService = authenticationService;
-        this.jwtService = jwtService;
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody @Valid CreateUserDTO request) {
-        return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/authenticate")
@@ -35,10 +28,4 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @PostMapping("/validate")
-    public ResponseEntity<ValidateResponseDTO> validateToken(@RequestBody ValidateRequestDTO request) {
-        var role = jwtService.extractClaim(request.token(), claims -> claims.get("role", String.class));
-        ValidateResponseDTO responseDTO = new ValidateResponseDTO(1, "pedro", role);
-        return ResponseEntity.ok(responseDTO);
-    }
 }
