@@ -42,7 +42,7 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     if not pwd_context.verify(user.senha, db_user.senha):
         raise HTTPException(status_code=400, detail="Email ou senha inválidos")
 
-    role_map = {"admin": "ADM", "user": "USER"}
+    role_map = {"admin": "ADMIN", "user": "USER"}
     payload = {
         "name": db_user.nome,
         "password": user.senha,
