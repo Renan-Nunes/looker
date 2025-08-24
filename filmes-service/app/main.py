@@ -8,4 +8,4 @@ app.include_router(filmes.router, prefix="/v1/filmes", tags=["filmes"])
 
 @app.get("/")
 def health_check():
-    return {"status": "ok"}
+    return {"status": "ok, filmes-service"}

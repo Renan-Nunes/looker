@@ -3,9 +3,7 @@ import os
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
 from app.core.database import Base
 from app.models import Filme
 from app.core.config import settings

@@ -1,11 +1,12 @@
-# filmes-service/app/api/v1/routes/filmes.py
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
 from app.schemas.filme import FilmeCreateSchema, FilmeSchema, FilmeUpdateSchema, InventarioUpdateSchema
 from app.services.filme_service import FilmeService
 from app.core.database import get_db
+from app.core.security import RoleChecker
 
+allow_admin_only = RoleChecker(allowed_roles=["ADMIN"])
 router = APIRouter()
 filme_service = FilmeService()
 
@@ -13,9 +14,9 @@ filme_service = FilmeService()
 def get_all_filmes(db: Session = Depends(get_db)):
     return filme_service.get_all(db)
 
-@router.post("/", response_model=FilmeSchema, status_code=201)
+@router.post("/", response_model=FilmeSchema, status_code=201, dependencies=[Depends(allow_admin_only)])
 def create_filme(filme: FilmeCreateSchema, db: Session = Depends(get_db)):
-    print("DEBUG: Recebido payload:", filme.dict())  # mostra o que chegou
+    print("DEBUG: Recebido payload:", filme.dict())
     try:
         resultado = filme_service.create(db=db, filme=filme)
         print("DEBUG: Resultado do serviço:", resultado)
@@ -31,14 +32,14 @@ def get_filme(filme_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Filme não encontrado")
     return db_filme
 
-@router.put("/{filme_id}", response_model=FilmeSchema)
+@router.put("/{filme_id}", response_model=FilmeSchema, dependencies=[Depends(allow_admin_only)])
 def update_filme(filme_id: int, filme_update: FilmeUpdateSchema, db: Session = Depends(get_db)):
     db_filme = filme_service.update(db=db, filme_id=filme_id, filme_update=filme_update)
     if db_filme is None:
         raise HTTPException(status_code=404, detail="Filme não encontrado")
     return db_filme
 
-@router.delete("/{filme_id}", status_code=204)
+@router.delete("/{filme_id}", status_code=204, dependencies=[Depends(allow_admin_only)])
 def delete_filme(filme_id: int, db: Session = Depends(get_db)):
     success = filme_service.delete(db=db, filme_id=filme_id)
     if not success:
