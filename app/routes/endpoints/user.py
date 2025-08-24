@@ -26,10 +26,12 @@ def list_users(db: Session = Depends(get_db)):
 
 
 @router.get("/{user_id}", response_model=UserOut)
-def get_user(user_id: int, db: Session = Depends(get_db)):
+def get_user(user_id: int, db: Session = Depends(get_db), response: Response = None):
     user = controller_user.obter_user(db, user_id)
+
     if not user:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    response.headers["X-User-Role"] = user.role.value
     return user
 
 
