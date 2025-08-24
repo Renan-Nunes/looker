@@ -19,27 +19,28 @@ public class SecurityConfiguration {
     }
 
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/v1/api/register",       // rota de registro
-                                "/v1/api/authenticate",   // rota de login
-                                "/api/v1/auth/**",
-                                "/v1/api/validate"// se você estiver usando essa também
-                        ).permitAll()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(sess -> sess
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .cors().disable()
+//                .csrf().disable()
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/v1/api/register",       // rota de registro
+//                                "/v1/api/authenticate",   // rota de login
+//                                "/api/v1/auth/**",
+//                                "/v1/api/validate"// se você estiver usando essa também
+//                        ).permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .sessionManagement(sess -> sess
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                )
+//                .authenticationProvider(authenticationProvider)
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
 
 
 }

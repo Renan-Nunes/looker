@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -21,10 +22,7 @@ public class JwtDecodeFilter implements WebFilter, Ordered {
     private static final String secretKey = "0e1110b29e5cab1d172a006d08b8c7c1c4225c039e213dc14ce1cf1675d3e9f3";
 
     private static final List<String> openPaths = List.of(
-            "/auth/v1/api/register",
-            "/auth/v1/api/register/",
-            "/auth/v1/api/login",
-            "/auth/v1/api/login/"
+            "/auth/v1/api/authenticate"
     );
 
     @Override
@@ -36,6 +34,10 @@ public class JwtDecodeFilter implements WebFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getPath().toString();
         System.out.println("JwtDecodeFilter: Path recebido: " + path);
+
+        if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
+            return chain.filter(exchange);
+        }
 
         if (openPaths.stream().anyMatch(path::equals) || openPaths.stream().anyMatch(path::startsWith)) {
             System.out.println("JwtDecodeFilter: Liberando rota pública: " + path);

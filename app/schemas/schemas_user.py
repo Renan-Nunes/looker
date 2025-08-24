@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import date
-from app.models.models_user import RoleEnum
+from models.models_user import RoleEnum
 
 
 class UserCreate(BaseModel):
