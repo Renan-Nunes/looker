@@ -14,8 +14,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", "app", "core", ".env"))
 
 # === IMPORTAR MODELS E BASE ===
-from app.core.db_usuario import Base
-from app.models.models_user import User
+from app.core.db_payment import Base
+from app.models.models_payment import Payment
 
 # === LOGGING DO ALEMBIC ===
 if context.config.config_file_name is not None:
