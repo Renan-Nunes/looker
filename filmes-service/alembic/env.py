@@ -6,6 +6,7 @@ from alembic import context
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from app.core.database import Base
 from app.models import Filme
+from app.models import Review
 from app.core.config import settings
 
 config = context.config

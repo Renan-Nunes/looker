@@ -1,6 +1,7 @@
 from pydantic import BaseModel, HttpUrl
-from typing import Optional
+from typing import Optional, List
 from datetime import date
+from .review import ReviewSchema
 
 class FilmeBaseSchema(BaseModel):
     titulo: str
@@ -26,6 +27,7 @@ class FilmeSchema(FilmeBaseSchema):
     id: int
     total_copias: int
     copias_disponiveis: int
+    reviews: List[ReviewSchema] = []
 
     class Config:
         from_attributes = True
