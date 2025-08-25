@@ -53,6 +53,6 @@ def processar_devolucao(
 
 
 @router.get("/", response_model=List[AluguelSchema])
-def get_alugueis_por_usuario(usuario_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def get_alugueis_por_usuario(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     alugueis = aluguel_service.get_by_usuario(db=db, usuario_id=current_user.id)
     return alugueis
