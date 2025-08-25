@@ -4,7 +4,7 @@ from app.models.aluguel import AluguelStatus
 
 class AluguelCreateSchema(BaseModel):
     filme_id: int
-    usuario_id: int
+    # usuario_id: int  <-- REMOVA ESTA LINHA
 
 class AluguelSchema(BaseModel):
     id: int
