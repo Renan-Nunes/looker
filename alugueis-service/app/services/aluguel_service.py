@@ -9,7 +9,10 @@ class AluguelService:
     def get_by_usuario(self, db: Session, usuario_id: int):
         return db.query(AluguelModel).filter(AluguelModel.usuario_id == usuario_id).all()
 
-    def create(self, db: Session, aluguel: AluguelCreateSchema):
+    def get_by_id(self, db: Session, aluguel_id: int):
+        return db.query(AluguelModel).filter(AluguelModel.id == aluguel_id).first()
+
+    def create(self, db: Session, aluguel: AluguelCreateSchema, usuario_id: int):
         try:
             response = httpx.get(f"{settings.FILMES_SERVICE_URL}/v1/filmes/{aluguel.filme_id}")
             response.raise_for_status()
@@ -26,7 +29,7 @@ class AluguelService:
 
         db_aluguel = AluguelModel(
             filme_id=aluguel.filme_id,
-            usuario_id=aluguel.usuario_id,
+            usuario_id=usuario_id,
             valor_aluguel=filme_data["preco_aluguel"],
             data_prevista_devolucao=data_prevista_devolucao,
             status=AluguelStatus.ATIVO
