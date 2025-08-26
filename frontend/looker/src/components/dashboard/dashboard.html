@@ -1,0 +1,14 @@
+<main class="main-content">
+  <section class="featured-movies">
+    <h2>Destaques</h2>
+    <div class="movie-cards">
+      <div class="movie-card" *ngFor="let movie of movies">
+        <img src="movie.posterUrl" alt="{{ movie.titulo }}" />
+        <div class="movie-info">
+          <h3>{{ movie.titulo }}</h3>
+          <p>{{ movie.anoLancamento }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
