@@ -1,0 +1,8 @@
+alugueis-service/alembic/__pycache__/env.cpython-313.pyc
+alugueis-service/alembic/versions/__pycache__/4d57292f4b12_tb_alugueis.cpython-313.pyc
+alugueis-service/app/__pycache__/__init__.cpython-313.pyc
+alugueis-service/app/core/__pycache__/__init__.cpython-313.pyc
+alugueis-service/app/core/__pycache__/config.cpython-313.pyc
+alugueis-service/app/core/__pycache__/database.cpython-313.pyc
+alugueis-service/app/models/__pycache__/__init__.cpython-313.pyc
+alugueis-service/app/models/__pycache__/aluguel.cpython-313.pyc

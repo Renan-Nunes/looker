@@ -1,0 +1,207 @@
+/* ====== Tokens ====== */
+:root {
+  --bg: #0a0a0a;
+  --bg-elev: #141414;
+  --card: #161616;
+  --border: #242424;
+  --text: #eaeaea;
+  --muted: #a8a8a8;
+  --primary: #e11d48; /* vermelho rosado bonito */
+  --primary-700: #be123c;
+  --focus: #22d3ee; /* ciano para acessibilidade */
+  --shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Ubuntu", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--text);
+}
+
+///* Ajustes finos do Angular Material (MDc) */
+//.search-input .mdc-notched-outline__leading,
+//.search-input .mdc-notched-outline__trailing,
+//.search-input .mdc-notched-outline__notch {
+//  border-color: var(--border) !important;
+//}
+//
+//.search-input .mdc-text-field--outlined {
+//  background: var(--bg-elev);
+//}
+//
+//.search-input .mdc-text-field--focused .mdc-notched-outline__leading,
+//.search-input .mdc-text-field--focused .mdc-notched-outline__trailing,
+//.search-input .mdc-text-field--focused .mdc-notched-outline__notch {
+//  border-color: var(--primary) !important;
+//}
+//
+///* Menu */
+//.menu-toggle {
+//  background: transparent;
+//  border: 1px solid var(--border);
+//  color: var(--text);
+//  padding: 8px 10px;
+//  border-radius: 12px;
+//  display: grid;
+//  place-items: center;
+//  cursor: pointer;
+//  transition: background .2s ease, border-color .2s ease, transform .1s ease;
+//}
+//.menu-toggle:hover { background: var(--bg-elev); border-color: #2a2a2a; }
+//.menu-toggle:active { transform: scale(.98); }
+
+
+.main-menu a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: color .2s ease, background .2s ease;
+}
+.main-menu a:hover { color: var(--text); background: var(--bg-elev); }
+
+/* Mobile drawer behavior */
+@media (max-width: 900px) {
+  .main-header {
+    grid-template-columns: 1fr auto auto;
+  }
+  .main-menu {
+    position: fixed;
+    inset: 64px 0 0 0;
+    background: rgba(10,10,10,.95);
+    backdrop-filter: blur(4px);
+    border-top: 1px solid var(--border);
+    padding: 16px;
+    flex-direction: column;
+    transform: translateY(-6%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .main-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* ====== Main & Sections ====== */
+.main-content {
+  padding: 24px 20px 56px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featured-movies > h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+/* ====== Cards de filmes ====== */
+.movie-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.movie-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .2s ease;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.45);
+  border-color: #2c2c2c;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+  background: #0f0f0f;
+}
+
+/* Info */
+.movie-info {
+  padding: 10px 12px 12px;
+}
+
+.movie-info h3 {
+  margin: 0 0 4px;
+  font-size: .98rem;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.movie-info p {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+/* ====== Acessibilidade / Focus ====== */
+button:focus-visible,
+a:focus-visible,
+.mat-mdc-button:focus-visible,
+.mat-mdc-icon-button:focus-visible,
+.mdc-text-field:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* ====== Scrollbar (webkit) ====== */
+*::-webkit-scrollbar { height: 10px; width: 10px; }
+*::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 10px; }
+*::-webkit-scrollbar-thumb:hover { background: #353535; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* ====== Preferência de movimento ====== */
+@media (prefers-reduced-motion: reduce) {
+  .movie-card,
+  .menu-toggle,
+  .main-menu {
+    transition: none !important;
+  }
+}
+
+/* ====== Realce de cor primária (componentes Material) ====== */
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary {
+  background: var(--primary) !important;
+}
+.mat-mdc-raised-button.mat-primary:hover,
+.mat-mdc-unelevated-button.mat-primary:hover {
+  background: var(--primary-700) !important;
+}
+.mat-mdc-icon-button.mat-primary,
+.mat-mdc-button.mat-primary {
+  color: var(--primary) !important;
+}
+
+/* Sufixo do campo (ícone de limpar) */
+.mdc-text-field__icon {
+  color: var(--muted);
+}
+.mdc-text-field__icon:hover {
+  color: var(--text);
+}
