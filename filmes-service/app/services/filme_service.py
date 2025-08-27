@@ -13,12 +13,8 @@ class FilmeService:
 
     def create(self, db: Session, filme: FilmeCreateSchema):
         db_filme = FilmeModel(
-            titulo=filme.titulo,
-            genero=filme.genero,
-            ano=filme.ano,
-            preco_aluguel=filme.preco_aluguel,
-            total_copias=filme.total_copias,
-            copias_disponiveis=filme.total_copias  # Valor inicial
+            **filme.dict(),
+            copias_disponiveis=filme.total_copias
         )
         db.add(db_filme)
         db.commit()
