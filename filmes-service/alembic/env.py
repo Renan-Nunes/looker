@@ -1,45 +1,43 @@
-import sys
-import os
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import create_engine, pool
 from alembic import context
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from app.core.database import Base
-from app.models import Filme
-from app.models import Review
-from app.core.config import settings
+from app.models.filme import Filme
 
 config = context.config
+
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
 
+# === MIGRATIONS OFFLINE ===
 def run_migrations_offline() -> None:
-    url = settings.DATABASE_URL
+    url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        version_table="alembic_version_filmes"  # tabela de versão específica
     )
     with context.begin_transaction():
         context.run_migrations()
 
-
+# === MIGRATIONS ONLINE ===
 def run_migrations_online() -> None:
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-        url=settings.DATABASE_URL
-    )
+    connectable = create_engine(config.get_main_option("sqlalchemy.url"))
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+        context.configure(
+            connection=connection,
+            target_metadata=target_metadata,
+            compare_type=True,
+            version_table="alembic_version_filmes"  # tabela de versão específica
+        )
         with context.begin_transaction():
             context.run_migrations()
 
-
+# === EXECUÇÃO ===
 if context.is_offline_mode():
     run_migrations_offline()
 else:

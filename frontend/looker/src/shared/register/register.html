@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Registro de Conta</h2>
+<mat-dialog-content class="register-cardc">
+  <form [formGroup]="registerForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput placeholder="Digite seu nome" formControlName="name">
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-error *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+        Nome obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" placeholder="Digite seu email" formControlName="email">
+      <mat-icon matPrefix>mail</mat-icon>
+<!--      <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">-->
+<!--        Email inválido-->
+<!--      </mat-error>-->
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" placeholder="Digite sua senha" formControlName="password">
+      <mat-icon matPrefix>lock</mat-icon>
+<!--      <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">-->
+<!--        Senha deve ter no mínimo 6 caracteres-->
+<!--      </mat-error>-->
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Confirmar Senha</mat-label>
+      <input matInput type="password" placeholder="Confirme sua senha" formControlName="confirmPassword">
+      <mat-icon matPrefix>lock</mat-icon>
+<!--      <mat-error *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">-->
+<!--        As senhas não coincidem-->
+<!--      </mat-error>-->
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="onRegister()">Registrar</button>
+</mat-dialog-actions>
