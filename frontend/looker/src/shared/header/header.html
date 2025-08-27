@@ -1,0 +1,15 @@
+<header class="main-header">
+  <div class="logo">Looker</div>
+  <div class="header-items">
+    <nav class="main-menu" [class.open]="menuOpen">
+      <a href="#">Início</a>
+      <a href="#">Registrar</a>
+      <a href="#">Login</a>
+    </nav>
+    <form class="search-bar" (ngSubmit)="onSearch()">
+      <div class="group">
+        <input placeholder="Pesquisar" type="search" class="input">
+      </div>
+    </form>
+  </div>
+</header>
