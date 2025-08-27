@@ -3,6 +3,9 @@ from fastapi import HTTPException
 from app.models.models_user import User
 from app.schemas.schemas_user import UserCreate
 from passlib.context import CryptContext
+from app.dtos.dto_user import UserDTO
+from factorie.factorie_user import UserFactory
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -15,17 +18,8 @@ def create_user(db: Session, data: UserCreate):
     existing_user = db.query(User).filter(User.email == data.email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email já cadastrado")
-
-    new_user = User(
-        nome=data.nome,
-        cpf=data.cpf,
-        email=data.email,
-        senha=get_password_hash(data.senha),
-        telefone=data.telefone,
-        data_nascimento=data.data_nascimento,
-        role=data.role
-    )
-
+    dto = UserDTO.from_schema(data)
+    new_user = UserFactory.create(dto)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -45,13 +39,15 @@ def update_user(db: Session, user_id: int, data: UserCreate):
     if not user:
         return None
 
-    user.nome = data.nome
-    user.cpf = data.cpf
-    user.email = data.email
-    user.senha = get_password_hash(data.senha)
-    user.telefone = data.telefone
-    user.data_nascimento = data.data_nascimento
-    user.role = data.role
+    dto = UserDTO.from_schema(data)
+
+    user.nome = dto.nome
+    user.cpf = dto.cpf
+    user.email = dto.email
+    user.senha = get_password_hash(dto.senha)
+    user.telefone = dto.telefone
+    user.data_nascimento = dto.data_nascimento
+    user.role = dto.role
 
     db.commit()
     db.refresh(user)
@@ -65,4 +61,10 @@ def delete_user(db: Session, user_id: int):
 
     db.delete(user)
     db.commit()
+    return user
+
+def get_user_by_email(db: Session, email: str):
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        return None
     return user

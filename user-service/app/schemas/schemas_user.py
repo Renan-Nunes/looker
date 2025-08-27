@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import date
-from models.models_user import RoleEnum
+from app.models.models_user import RoleEnum
 
 
 class UserCreate(BaseModel):
@@ -24,3 +24,15 @@ class UserOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    senha: str
+
+
+class UserForAuth(BaseModel):
+    email: EmailStr
+    role: str
+    
+    

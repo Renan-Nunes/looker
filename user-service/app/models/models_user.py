@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Date, Enum as PgEnum
-from core.db_usuario import Base
+from app.core.db_usuario import Base
 from enum import Enum
 
 
