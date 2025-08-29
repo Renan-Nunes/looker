@@ -7,10 +7,9 @@ import com.example.demo.Domain.Security.Dto.ValidateRequestDTO;
 import com.example.demo.Domain.Security.Dto.ValidateResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 @RestController
@@ -28,4 +27,8 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
+    @GetMapping("/debug/headers")
+    public ResponseEntity<Map<String, String>> showHeaders(@RequestHeader Map<String, String> headers) {
+        return ResponseEntity.ok(headers);
+    }
 }

@@ -22,7 +22,9 @@ public class JwtDecodeFilter implements WebFilter, Ordered {
     private static final String secretKey = "0e1110b29e5cab1d172a006d08b8c7c1c4225c039e213dc14ce1cf1675d3e9f3";
 
     private static final List<String> openPaths = List.of(
-            "/auth/v1/api/authenticate"
+            "/auth/v1/api/authenticate",
+            "/user/api/v1/users/login",
+            "/user/api/v1/users/"
     );
 
     @Override

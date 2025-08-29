@@ -2,8 +2,11 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import {provideRouter, withRouterConfig} from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideHttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors} from '@angular/common/http';
+import {authInterceptor} from '../security/http-interceptor';
 
+// @ts-ignore
+// @ts-ignore
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -15,7 +18,7 @@ export const appConfig: ApplicationConfig = {
               onSameUrlNavigation: 'reload',
               paramsInheritanceStrategy: 'always'
             },
-        )),
-    provideHttpClient()
-  ]
+        )
+    ),
+    provideHttpClient(withInterceptors([authInterceptor]))]
 };
