@@ -4,7 +4,7 @@ from app.models.models_user import User
 from app.schemas.schemas_user import UserCreate
 from passlib.context import CryptContext
 from app.dtos.dto_user import UserDTO
-from factorie.factorie_user import UserFactory
+from app.factorie.factorie_user import UserFactory
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

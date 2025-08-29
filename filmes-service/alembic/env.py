@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, pool
 from alembic import context
 from app.core.database import Base
 from app.models.filme import Filme
+from app.models.review import Review
 
 config = context.config
 
