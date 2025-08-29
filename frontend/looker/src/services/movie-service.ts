@@ -15,7 +15,12 @@ export class MovieService {
 
   getMovies(name: string): Observable<FilmeModel[]> {
     // @ts-ignore
-    return this.http.get(`http://localhost:8000/movies/v1/filmes/search/${name}`);
+    if (name) {
+      // @ts-ignore
+      return this.http.get('http://localhost:8000/v1/filmes/search/', { params: { titulo: name } })
+        } else {
+      return this.getAllMovies();
+    };
   }
 
   getMovie(id: number) {

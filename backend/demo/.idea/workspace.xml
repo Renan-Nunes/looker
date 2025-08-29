@@ -1,4 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{}</component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c1491bee-f9b7-4466-a064-b53adc8d1ad8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../ApiGateway/src/main/java/looker/apigateway/gateway/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ApiGateway/src/main/java/looker/apigateway/gateway/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ApiGateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ApiGateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ApiGateway/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/components/dashboard/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/components/dashboard/dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/components/dashboard/dashboard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/components/dashboard/dashboard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/components/login/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/components/login/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/components/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/components/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/components/login/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/components/login/login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/components/movie/movie.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/components/movie/movie.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/components/movie/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/components/movie/movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/services/movie-service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/services/movie-service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/shared/header/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/shared/header/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/shared/header/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/shared/header/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/looker/src/shared/header/header.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/looker/src/shared/header/header.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="31wUlosNMNYHSAJF3JLaMHvNHBo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c1491bee-f9b7-4466-a064-b53adc8d1ad8" name="Changes" comment="" />
+      <created>1756434783064</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756434783064</updated>
+      <workItem from="1756434784271" duration="411000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
 </project>

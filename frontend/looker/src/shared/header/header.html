@@ -2,13 +2,15 @@
   <div class="logo">Looker</div>
   <div class="header-items">
     <nav class="main-menu" [class.open]="menuOpen">
-      <a href="#">Início</a>
+      <a href="#">Início </a>
       <a href="#">Registrar</a>
-      <a href="#">Login</a>
+
+      <a (click)="loginModal.openModal()">Login</a>
+        <app-login #loginModal (loginSubmit)="handleLogin($event)"> </app-login>
     </nav>
     <form class="search-bar" (ngSubmit)="onSearch()">
       <div class="group">
-        <input placeholder="Pesquisar" type="search" class="input">
+        <input placeholder="Pesquisar" type="search" class="input" [(ngModel)]="searchQuery" name="search" />
       </div>
     </form>
   </div>

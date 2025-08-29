@@ -1,33 +1,39 @@
-<!-- src/components/login/login.html -->
-<mat-card class="login-card">
-  <mat-card-title class="mat-card-title">Login</mat-card-title>
-  <mat-card-content class="mat-card-content">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <mat-form-field appearance="outline" class="mat-form-field">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" placeholder="Digite seu email" formControlName="email">
-        <mat-icon matPrefix>mail</mat-icon>
-        <mat-error *ngIf="form.get('Email')?.invalid && form.get('Email')?.touched">
-          Email inválido
-        </mat-error>
-      </mat-form-field>
+<div class="modal-overlay"
+     [class.active]="isVisible"
+     (click)="onOverlayClick($event)">
+  <div class="modal">
+    <div class="modal-header">
+      <button class="close-button" (click)="closeModal()">&times;</button>
+    </div>
 
-      <mat-form-field appearance="outline" class="mat-form-field">
-        <mat-label>Senha</mat-label>
-        <input matInput type="password" placeholder="Digite sua senha" formControlName="password">
-        <mat-icon matPrefix>lock</mat-icon>
-        <mat-error *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-          Senha obrigatória
-        </mat-error>
-      </mat-form-field>
+    <div class="modal-content">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-row">
+          <div class="form-group username">
+            <label class="form-label" for="username">Usuário</label>
+            <input type="text"
+                   id="username"
+                   formControlName="username"
+                   class="form-input"
+                   placeholder="Seu usuário">
+          </div>
 
-<!--      <p *ngIf="error" class="error" style="color: red; text-align: center;">-->
-<!--        {{ error }}-->
-<!--      </p>-->
+          <div class="form-group password">
+            <label class="form-label" for="password">Senha</label>
+            <input type="password"
+                   id="password"
+                   formControlName="password"
+                   class="form-input"
+                   placeholder="Sua senha">
+          </div>
 
-      <div>
-        <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Entrar</button>
-      </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+          <div class="form-group">
+            <button type="submit"
+                    [disabled]="!loginForm.valid"
+                    class="submit-button">Entrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

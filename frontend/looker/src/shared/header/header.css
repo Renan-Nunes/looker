@@ -84,3 +84,9 @@
   text-decoration: none;
   margin-bottom: 2px;
 }
+
+.header-items a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 92, 171, 0.4);
+  background: linear-gradient(135deg, #ff5cab, #c800ff);
+}

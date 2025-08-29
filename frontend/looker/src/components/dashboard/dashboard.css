@@ -46,7 +46,7 @@
 .input:focus, input:hover {
   outline: none;
   border-color: rgba(234,76,137,0.4);
-  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+  box-shadow: 0 0 0 4px rgba(215, 22, 96, 0.1);
   color: #ffffff;
 }
 
@@ -83,6 +83,14 @@
   font-size: 14px;
   transition: color 0.3s ease;
   font-weight: bold;
+}
+
+.movie-info:before {
+    content: "🎬";
+    margin-right: 8px;
+}
+
+.movie-cards:hover {
 }
 
 

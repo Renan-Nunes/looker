@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #242028;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.movie-poster {
+    flex-shrink: 0;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.movie-poster:hover {
+    transform: scale(1.05);
+}
+
+.movie-poster img {
+    width: 300px;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+}
+
+.movie-details {
+    flex: 1;
+}
+
+.movie-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.movie-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+    background-color: rgba(47, 20, 20, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #ff5cab;
+}
+
+.details-section {
+    margin-bottom: 30px;
+}
+
+.details-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #ff5cab;
+    border-bottom: 2px solid #ff5cab;
+    padding-bottom: 5px;
+}
+
+.detail-item {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #ff5cab;
+    margin-right: 8px;
+}
+
+.detail-value {
+    color: #e0e0e0;
+}
+
+.rent-button {
+    background: linear-gradient(135deg, #ff5cab, #c800ff);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 92, 171, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.rent-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 92, 171, 0.4);
+    background: linear-gradient(135deg, #ff6bb3, #d91aff);
+}
+
+.rent-button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .movie-title {
+        font-size: 2rem;
+    }
+
+    .movie-poster img {
+        width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-title {
+        font-size: 1.5rem;
+    }
+
+    .movie-poster img {
+        width: 200px;
+    }
+
+    .container {
+        padding: 20px 15px;
+    }
+}

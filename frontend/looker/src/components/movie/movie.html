@@ -1,23 +1,36 @@
-<main style="position: relative; left: 15px; top: 3px; height: 835.094px; color: rgb(255, 255, 255);">
-  <div class="">
-  <img src="{{movie?.imagem_url}}" style="position: relative; left: 316px; top: 45px; width: 253.622px; height: 347.273px; transform: translate(-34.5455px, -29.0909px);">
+<main class="container">
+    <div class="movie-poster">
+        <img src="{{movie?.imagem_url}}"
+             alt="{{movie?.titulo}}"
+             loading="lazy">
+    </div>
 
-  <h1 class="movie-title" style="position: relative; left: -55px; top: -360px; width: 335.44px; transform: translate(604.545px, 0px); height: 34.5312px;">{{ movie?.titulo}}</h1>
-  <p class="movie-description" style="position: relative; left: -140px; top: -350px; width: 570.894px; height: 117.438px; transform: translate(690.909px, 0px);" spellcheck="true"> {{ movie?.sinopse }} </p>
-  <strong
-    style="position: relative; left: 550px; top: -320px; transform: translate(-15px, 0px); transition: none;">
-    Diretor: {{ movie?.diretor }}
-  </strong><br>
-  <strong
-    style="position: relative; left: 550px; top: -320px; transform: translate(0px, -42px);" spellcheck="true">
-    Gênero: {{ movie?.genero }}
-  </strong><br>
-  <strong
-    style="position: relative; left: 550px; top: -320px; transition: none;" spellcheck="true">
-    Duração: {{ movie?.duracao_minutos }} minutos
-  </strong>
-  <button class="rent-movie" style="position: relative; left: 478px; top: -261px;">Alugar Agora</button>
-  </div>
+    <div class="movie-details">
+        <h1 class="movie-title">{{movie?.titulo}}</h1>
+
+        <p class="movie-description">{{movie?.sinopse}}</p>
+
+        <section class="details-section">
+            <h2 class="details-title">Detalhes</h2>
+
+            <div class="detail-item">
+                <span class="detail-label">Diretor:</span>
+                <span class="detail-value">{{movie?.diretor}}</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Gênero:</span>
+                <span class="detail-value">{{movie?.genero}}</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Duração:</span>
+                <span class="detail-value">{{movie?.duracao_minutos}} minutos</span>
+            </div>
+        </section>
+
+        <button class="rent-button" type="button" onclick="rentMovie()">
+            Alugar Agora
+        </button>
+    </div>
 </main>
-
-
