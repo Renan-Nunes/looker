@@ -5,6 +5,7 @@ from app.schemas.aluguel import AluguelCreateSchema, AluguelSchema
 from app.services.aluguel_service import AluguelService
 from app.core.database import get_db
 from app.core.security import User, get_current_user
+import requests
 
 router = APIRouter()
 aluguel_service = AluguelService()
@@ -16,14 +17,37 @@ def create_aluguel(
     current_user: User = Depends(get_current_user)
 ):
     try:
-        db_aluguel = aluguel_service.create(db=db, aluguel=aluguel, usuario_id=current_user.id)
-        return db_aluguel
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except ConnectionError as e:
-        raise HTTPException(status_code=503, detail=str(e))
+        db_aluguel = aluguel_service.create(
+            db=db,
+            aluguel=aluguel,
+            usuario_id=current_user.id
+        )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ocorreu um erro inesperado: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro ao criar aluguel: {e}")
+
+    try:
+        payment_response = requests.post(
+            "http://localhost:8005/api/v1/payment",
+            json={
+                "aluguel_id": db_aluguel.id,
+                "user_id": current_user.id,
+                "amount": db_aluguel.valor_aluguel
+            },
+            headers={
+                "X-User-Id": str(current_user.id),
+                "X-User-Role": current_user.role
+            }
+        )
+        payment_response.raise_for_status() 
+
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"Erro ao comunicar com payment: {e}")
+
+    return {
+        "aluguel": db_aluguel,
+        "pagamento": payment_response.json()
+    }
+
 
 @router.post("/{aluguel_id}/devolucao", response_model=AluguelSchema)
 def processar_devolucao(

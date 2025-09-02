@@ -1,18 +1,26 @@
 from fastapi import APIRouter, HTTPException, Header
-from app.schemas.schemas_payment import Payment_Request
+from pydantic import BaseModel
 import requests
 
 router = APIRouter()
 
+# Schema minimalista para a requisição de pagamento
+class PaymentRequest(BaseModel):
+    aluguel_id: int
+    user_id: int
+    amount: float
+
 @router.post("/payment")
 def process_payment(
-    payment: Payment_Request,
-    x_user_id: str = Header(alias="X-User-Id"),
-    x_user_role: str = Header(alias="X-User-Role")
+    payment: PaymentRequest,
+    x_user_id: str = Header(..., alias="X-User-Id"),
+    x_user_role: str = Header(..., alias="X-User-Role")
 ):
-    if not payment.card_number or payment.amount <= 0:
-        raise HTTPException(status_code=400, detail="Invalid payment details")
+    # Validação mínima
+    if payment.amount <= 0:
+        raise HTTPException(status_code=400, detail="Valor inválido para pagamento")
 
+    # Resposta de sucesso
     response = {
         "status": 200,
         "aluguel_id": payment.aluguel_id,
@@ -21,6 +29,7 @@ def process_payment(
         "message": "Payment processed successfully"
     }
 
+    # Atualizar devolução do aluguel
     aluguel_api_url = f"http://localhost:8001/v1/alugueis/{payment.aluguel_id}/devolucao"
 
     try:
@@ -32,7 +41,9 @@ def process_payment(
             }
         )
         if aluguel_response.status_code != 200:
-            response["warning"] = f"Não foi possível atualizar devolução do aluguel {payment.aluguel_id}"
+            response["warning"] = f"Não foi possível atualizar ativo do aluguel {payment.aluguel_id}"
+        else:
+            response["aluguel_update"] = aluguel_response.json()
     except Exception as e:
         response["warning"] = f"Erro ao comunicar com API de aluguel: {str(e)}"
 

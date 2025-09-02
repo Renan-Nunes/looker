@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {FilmeModel} from '../../models/filme-model';
-import {MovieService} from '../../services/movie-service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FilmeModel } from '../../models/filme-model';
+import { MovieService } from '../../services/movie-service';
+import { ActivatedRoute } from '@angular/router';
+import { Rent } from "../../services/rent";
 
 @Component({
   selector: 'app-movie',
-  imports: [],
   templateUrl: './movie.html',
-  styleUrl: './movie.css'
+  styleUrls: ['./movie.css']  // <-- corrigido (styleUrls)
 })
 export class Movie implements OnInit {
   movie: FilmeModel | undefined;
 
   constructor(
     private route: ActivatedRoute,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private rentService: Rent
   ) {}
 
   ngOnInit(): void {
@@ -22,10 +23,22 @@ export class Movie implements OnInit {
       const id = +params['id'];
       this.movieService.getMovie(id).subscribe(
         (data) => {
-          this.movie = (data) as FilmeModel;
+          this.movie = data as FilmeModel;
           console.log(this.movie);
         }
       );
     });
+  }
+
+  
+  rentMovie(): void {
+    console.log(this.movie);
+    if (this.movie) {
+      this.rentService.getRents(this.movie.id).subscribe(
+        (data) => {
+          
+        }
+      );
+    }
   }
 }

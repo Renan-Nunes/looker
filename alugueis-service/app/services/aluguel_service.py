@@ -1,9 +1,10 @@
-import httpx
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from app.models.aluguel import Aluguel as AluguelModel, AluguelStatus
 from app.schemas.aluguel import AluguelCreateSchema
 from app.core.config import settings
+import httpx
+
 
 class AluguelService:
     def get_by_usuario(self, db: Session, usuario_id: int):
