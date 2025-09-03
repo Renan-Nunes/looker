@@ -40,4 +40,15 @@ export class Header {
       }
     });
   }
+
+  handleRegister($event: {username: string; password: string}) {
+    this.LoginService.authenticate($event.username, $event.password).subscribe({
+      next: (response) => {
+        localStorage.setItem("jwt", String(response));
+      },
+      error: (error) => {
+        console.error('Login failed', error);
+      }
+    });
+  }
 }

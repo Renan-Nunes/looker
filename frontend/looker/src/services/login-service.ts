@@ -11,4 +11,9 @@ export class LoginService {
   authenticate(username: string, password: string) {
     return this.http.post('http://localhost:8080/user/api/v1/users/login', { email: username, senha: password })
   }
+
+  register(username: string, password: string) {
+    return this.http.post('http://localhost:8080/user/api/v1/users', { email: username, senha: password })
+  }
+
 }
