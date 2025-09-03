@@ -1,17 +1,11 @@
 from pydantic_settings import BaseSettings
-from dotenv import load_dotenv
-
-load_dotenv()  # lê o .env
+import os
 
 class Settings(BaseSettings):
     DATABASE_URL: str
 
     class Config:
-        env_file = "../../.env"
+        env_file = os.path.join(os.path.dirname(__file__), "../../.env")  # ajustado para o exe, se necessário
 
 settings = Settings()
-
-# Limpa espaços e caracteres invisíveis
 settings.DATABASE_URL = settings.DATABASE_URL.strip()
-
-print(f"url limpa: {repr(settings.DATABASE_URL)}")

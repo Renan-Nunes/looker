@@ -1,13 +1,14 @@
 from fastapi import FastAPI
-from app.api.v1.routes import alugueis
+from app.routes.payment import router as payment_router
 from fastapi.middleware.cors import CORSMiddleware
 
 
-app = FastAPI(title="Aluguéis Service")
+app = FastAPI()
 
 origins = [
     "http://localhost:4200",  # seu front-end
-    "http://127.0.0.1:4200"  # outra forma do localhost
+    "http://127.0.0.1:4200",  # outra forma do localhost
+    "*"  # para liberar todos os domínios (não recomendado em produção)
 ]
 
 app.add_middleware(
@@ -18,8 +19,5 @@ app.add_middleware(
     allow_headers=["*"],       # todos os headers
 )
 
-app.include_router(alugueis.router, prefix="/v1/alugueis", tags=["alugueis"])
-
-@app.get("/")
-def health_check():
-    return {"status": "ok, alugueis-service"}
+# Rotas
+app.include_router(payment_router, prefix="/api/v1")

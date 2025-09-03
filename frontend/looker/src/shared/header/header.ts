@@ -33,7 +33,9 @@ export class Header {
   handleLogin($event: {username: string; password: string; remember: boolean}) {
     this.LoginService.authenticate($event.username, $event.password).subscribe({
       next: (response) => {
-        localStorage.setItem("jwt", String(response));
+        console.log('oiii');
+        // @ts-ignore
+        localStorage.setItem("jwt", String(response.token));
       },
       error: (error) => {
         console.error('Login failed', error);
