@@ -11,27 +11,23 @@ import {RegisterModel} from '../../models/register-model';
   imports: [
     FormsModule,
     Login,
-    Register,
     Register
   ],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
 export class Header {
-  menuOpen: any;
-  router: any;
+  menuOpen: boolean = false;
   searchQuery: string = '';
-  loginService: LoginService;
 
 
-  constructor (Router: Router, private LoginService: LoginService) {
-    this.menuOpen = false;
-    this.router = Router;
-    this.loginService = LoginService;
-  }
+  constructor (
+    private router: Router,
+    private LoginService: LoginService
+  ) {}
 
   onSearch() {
-    this.router.navigate([''], { queryParams: { q: this.searchQuery } });
+    this.router.navigate([''], {queryParams: {q: this.searchQuery}}).then(r => console.log(r));
   }
 
   handleLogin($event: {username: string; password: string; remember: boolean}) {
@@ -41,18 +37,18 @@ export class Header {
         localStorage.setItem("jwt", String(response.token));
       },
       error: (error) => {
-        console.error('Login failed', error);
+        console.error('Falha no login', error);
       }
     });
   }
 
   handleRegister($event: RegisterModel) {
     this.LoginService.register($event).subscribe({
-      next: (response) => {
+      next: () => {
         alert('Registro Concluido!');
       },
       error: (error) => {
-        console.error('Login failed', error);
+        console.error('Falha no login', error);
       }
     });
   }
