@@ -3,10 +3,11 @@
   <div class="header-items">
     <nav class="main-menu" [class.open]="menuOpen">
       <a href="#">Início </a>
-      <a href="#">Registrar</a>
 
       <a (click)="loginModal.openModal()">Login</a>
         <app-login #loginModal (loginSubmit)="handleLogin($event)"> </app-login>
+      <a (click)="registerModal.openModal()">Cadastrar</a>
+        <app-register #registerModal (registerSubmit)="handleRegister($event)"> </app-register>
     </nav>
     <form class="search-bar" (ngSubmit)="onSearch()">
       <div class="group">

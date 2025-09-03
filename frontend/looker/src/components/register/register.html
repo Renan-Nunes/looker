@@ -27,10 +27,45 @@
                    placeholder="Sua senha">
           </div>
 
+          <div class="form-group password">
+            <label class="form-label" for="password">Email</label>
+            <input type="email"
+                   id="email"
+                   formControlName="email"
+                   class="form-input"
+                   placeholder="Email">
+          </div>
+
+          <div class="form-group password">
+            <label class="form-label" for="password">Email</label>
+            <input type="cpf"
+                   id="cpf"
+                   formControlName="cpf"
+                   class="form-input"
+                   placeholder="cpf">
+          </div>
+
+          <div class="form-group phone">
+            <label class="form-label" for="password">Telefone</label>
+            <input type="text"
+                   id="phone"
+                   formControlName="phone"
+                   class="form-input"
+                   placeholder="Telefone">
+          </div>
+
+          <div class="form-group password">
+            <label class="form-label" for="password">Data de nascimento</label>
+            <input type="date"
+                   id="dateOfBirth"
+                   formControlName="dateOfBirth"
+                   class="form-input"
+                   placeholder="Data de nascimento">
+          </div>
           <div class="form-group">
             <button type="submit"
                     [disabled]="!registerForm.valid"
-                    class="submit-button">Entrar</button>
+                    class="submit-button">Register</button>
           </div>
         </div>
       </form>

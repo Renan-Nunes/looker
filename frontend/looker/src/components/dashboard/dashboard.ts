@@ -51,7 +51,7 @@ export class Dashboard implements OnInit {
     });
   }
 
-  openMovieInfo(id: number) {ccccccs
+  openMovieInfo(id: number) {
     this.router.navigate([`/movie/${id}`]);
   }
 }

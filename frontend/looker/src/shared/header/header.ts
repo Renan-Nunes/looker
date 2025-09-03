@@ -3,12 +3,16 @@ import {FormsModule} from '@angular/forms';
 import {Router} from "@angular/router";
 import {Login} from "../../components/login/login";
 import {LoginService} from "../../services/login-service";
+import {Register} from '../../components/register/register';
+import {RegisterModel} from '../../models/register-model';
 
 @Component({
   selector: 'app-header',
   imports: [
     FormsModule,
-    Login
+    Login,
+    Register,
+    Register
   ],
   templateUrl: './header.html',
   styleUrl: './header.css'
@@ -33,7 +37,6 @@ export class Header {
   handleLogin($event: {username: string; password: string; remember: boolean}) {
     this.LoginService.authenticate($event.username, $event.password).subscribe({
       next: (response) => {
-        console.log('oiii');
         // @ts-ignore
         localStorage.setItem("jwt", String(response.token));
       },
@@ -43,10 +46,10 @@ export class Header {
     });
   }
 
-  handleRegister($event: {username: string; password: string}) {
-    this.LoginService.authenticate($event.username, $event.password).subscribe({
+  handleRegister($event: RegisterModel) {
+    this.LoginService.register($event).subscribe({
       next: (response) => {
-        localStorage.setItem("jwt", String(response));
+        alert('Registro Concluido!');
       },
       error: (error) => {
         console.error('Login failed', error);

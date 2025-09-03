@@ -5,6 +5,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {Header} from '../shared/header/header';
 import {Dashboard} from '../components/dashboard/dashboard';
 import {RouterOutlet} from '@angular/router';
+import {Register} from '../shared/register/register';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import {RouterOutlet} from '@angular/router';
     CommonModule,
     FormsModule,
     Header,
-    Dashboard,
+    Register,
     RouterOutlet
   ],
   templateUrl: './app.html',
