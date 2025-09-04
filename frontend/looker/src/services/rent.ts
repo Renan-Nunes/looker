@@ -8,7 +8,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class Rent {
   http: HttpClient;
-  constructor(http: HttpClient) { 
+  constructor(http: HttpClient) {
     this.http = http;
   }
 
@@ -19,10 +19,10 @@ export class Rent {
       });
       // @ts-ignore
       return this.http.post(
-        'http://localhost:8001/v1/alugueis/',
+        '/rent/v1/alugueis/',
         { filme_id: filmeId },
-        { headers }   
+        { headers }
       );
     }
 }
-  
+
