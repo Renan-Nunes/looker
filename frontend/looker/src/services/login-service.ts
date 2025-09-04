@@ -14,7 +14,6 @@ export class LoginService {
   }
 
   register(data: RegisterModel) {
-    console.log(data);
     return this.http.post(
       'http://localhost:8080/user/api/v1/users',
       {

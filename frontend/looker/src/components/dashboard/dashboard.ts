@@ -22,7 +22,6 @@ export class Dashboard implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Dashboard inicializado");
     this.loadMovies();
 
     this.subscriptions.add(

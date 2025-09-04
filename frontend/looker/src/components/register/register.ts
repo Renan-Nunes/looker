@@ -33,7 +33,6 @@ export class Register {
   });
 
   openModal() {
-    console.log("Abrindo modal de register");
     this.isVisible = true;
     setTimeout(() => document.getElementById('username')?.focus(), 300);
   }
@@ -47,14 +46,12 @@ export class Register {
     if (this.registerForm.valid) {
 
       const registerData: RegisterModel = {
-        username: this.registerForm.get('username')?.value,
-        password: this.registerForm.get('password')?.value,
-        // @ts-ignore
-        email: this.registerForm.get('email')?.value,
-        // @ts-ignore
-        cpf: this.registerForm.get('cpf')?.value,
-        phone: this.registerForm.get('phone')?.value,
-        dateOfBirth: this.registerForm.get('dateOfBirth')?.value,
+        nome: this.registerForm.get('username')?.value?.toString(),
+        senha: this.registerForm.get('password')?.value?.toString(),
+        email: this.registerForm.get('email')?.value?.toString(),
+        cpf: this.registerForm.get('cpf')?.value?.toString(),
+        telefone: this.registerForm.get('phone')?.value?.toString(),
+        data_nascimento: new Date(this.registerForm.get('dateOfBirth')?.value?.toString() || ''),
       };
 
       this.registerSubmit.emit(registerData);

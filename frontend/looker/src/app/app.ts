@@ -16,7 +16,6 @@ import {Register} from '../shared/register/register';
     CommonModule,
     FormsModule,
     Header,
-    Register,
     RouterOutlet
   ],
   templateUrl: './app.html',

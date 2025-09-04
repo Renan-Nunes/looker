@@ -9,19 +9,7 @@ import {FilmeModel} from '../models/filme-model';
 
 export class MovieService {
 
-  constructor(private http: HttpClient) {
-    this.http = http;
-  }
-
-  getMovies(name: string): Observable<FilmeModel[]> {
-    // @ts-ignore
-    if (name) {
-      // @ts-ignore
-      return this.http.get('http://localhost:8000/v1/filmes/search/', { params: { titulo: name } })
-        } else {
-      return this.getAllMovies();
-    };
-  }
+  constructor(private http: HttpClient) {}
 
   getMovie(id: number) {
     return this.http.get(`http://localhost:8000/v1/filmes/${id}` );
@@ -29,6 +17,7 @@ export class MovieService {
 
   getAllMovies(): Observable<FilmeModel[]> {
     const url = 'http://localhost:8000/v1/filmes/';
+
     const headers = {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json'

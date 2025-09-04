@@ -28,7 +28,6 @@ export class Login {
   });
 
   openModal() {
-    console.log("Abrindo modal de login");
     this.isVisible = true;
     setTimeout(() => document.getElementById('username')?.focus(), 300);
   }

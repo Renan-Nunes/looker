@@ -43,7 +43,6 @@ export class Register implements OnInit {
   }
 
   openModal() {
-    console.log("Abrindo modal de register");
     this.dialogRef.updatePosition({ top: '50px' });
     setTimeout(() => document.getElementById('name')?.focus(), 300);
   }

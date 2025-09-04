@@ -24,19 +24,17 @@ export class Movie implements OnInit {
       this.movieService.getMovie(id).subscribe(
         (data) => {
           this.movie = data as FilmeModel;
-          console.log(this.movie);
         }
       );
     });
   }
 
-  
+
   rentMovie(): void {
-    console.log(this.movie);
     if (this.movie) {
       this.rentService.getRents(this.movie.id).subscribe(
         (data) => {
-          
+
         }
       );
     }
