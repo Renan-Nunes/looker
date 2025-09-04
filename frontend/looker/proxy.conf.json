@@ -1,32 +1,11 @@
 {
-  "/movie/*": {
-    "target": "http://localhost:8000",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  },
-  "/auth/*": {
+  "/gateway/**": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug"
-  },
-  "/rent/*": {
-    "target": "http://localhost:8001",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  },
-  "/user/*": {
-    "target": "http://localhost:8002",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  },
-  "/payment/*": {
-    "target": "http://localhost:8005",
-    "secure": false,
-    "changeOrigin": true,
+    "pathRewrite" : {
+      "^/gateway": ""
+    }, 
     "logLevel": "debug"
   }
 }

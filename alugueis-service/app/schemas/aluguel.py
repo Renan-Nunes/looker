@@ -4,7 +4,6 @@ from app.models.aluguel import AluguelStatus
 
 class AluguelCreateSchema(BaseModel):
     filme_id: int
-    # usuario_id: int  <-- REMOVA ESTA LINHA
 
 class AluguelSchema(BaseModel):
     id: int
@@ -15,6 +14,14 @@ class AluguelSchema(BaseModel):
     data_devolucao: datetime | None = None
     valor_aluguel: float
     status: AluguelStatus
+
+    class Config:
+        from_attributes = True
+
+
+class AluguelSchemaPayment(BaseModel):
+    aluguel: AluguelSchema
+    pagamento: dict
 
     class Config:
         from_attributes = True

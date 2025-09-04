@@ -56,6 +56,15 @@ public class JwtDecodeFilter implements WebFilter, Ordered {
                                 .header("X-User-Id", claims.getSubject())
                                 .header("X-User-Role", claims.get("role", String.class))
                         ).build();
+                
+                System.out.println("Authorization Header: " + authHeader);
+                System.out.println("Claims extraídos: " + claims);
+                System.out.println("JwtDecodeFilter: Rota protegida acessada: " + path);
+                System.out.println("JwtDecodeFilter: Token extraído: " + token);
+                System.out.println("JwtDecodeFilter: X-User-Id: " + claims.getSubject());
+                System.out.println("JwtDecodeFilter: X-User-Role: " + claims.get("role", String.class));
+
+
                 return chain.filter(mutatedExchange);
             } catch (Exception e) {
                 System.out.println("JwtDecodeFilter: Erro ao processar token: " + e.getMessage());

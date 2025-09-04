@@ -12,17 +12,17 @@ export class MovieService {
   constructor(private http: HttpClient) {}
 
   getMovie(id: number) {
-    return this.http.get(`http://localhost:8000/v1/filmes/${id}` );
+    return this.http.get(`/gateway/movie/v1/filmes/${id}` );
   }
 
   getAllMovies(): Observable<FilmeModel[]> {
-    const url = 'http://localhost:8000/v1/filmes/';
+    const url = '/gateway/movie/v1/filmes/';
 
     const headers = {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json'
     };
-
+    console.log('Fetching all movies from:', url);
     return this.http.get<FilmeModel[]>(url, { headers });
   }
 }

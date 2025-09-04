@@ -29,12 +29,18 @@ export class Movie implements OnInit {
     });
   }
 
-
+  
   rentMovie(): void {
     if (this.movie) {
       this.rentService.getRents(this.movie.id).subscribe(
         (data) => {
-
+          console.log('Rent successful:', data);
+          // @ts-ignore  
+          const iso = data.aluguel.data_prevista_devolucao.replace(/(\.\d{3})\d+/, "$1");
+          // @ts-ignore
+          alert('Aluguel realizado com sucesso!! ' + 'Codigo do aluguel: ' + data.pagamento.aluguel_id + ' valor: ' + data.pagamento.amount);
+          // @ts-ignore
+          alert('Previsao de devolucao: ' + new Date(iso));
         }
       );
     }

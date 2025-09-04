@@ -43,9 +43,9 @@ public class UserModel implements UserDetails {
 
     }
 
-    public UserModel(String password, String email, Role role) {
+    public UserModel(String password, int id, Role role) {
         this.password = password;
-        this.email = email;
+        this.id = id;
         this.role = role;
     }
 
@@ -71,6 +71,10 @@ public class UserModel implements UserDetails {
 
     public Role getRole() {
         return role;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public void setRole(Role role) {

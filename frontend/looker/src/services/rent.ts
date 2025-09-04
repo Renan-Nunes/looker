@@ -8,21 +8,16 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class Rent {
   http: HttpClient;
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient) { 
     this.http = http;
   }
 
   getRents(filmeId: number): Observable<any[]> {
-      const headers = new HttpHeaders({
-        'X-User-Id': '1',
-        'X-User-Role': 'USER'
-      });
       // @ts-ignore
       return this.http.post(
-        '/rent/v1/alugueis/',
-        { filme_id: filmeId },
-        { headers }
+        '/gateway/rent/v1/alugueis/',
+        { filme_id: filmeId }  
       );
     }
 }
-
+  

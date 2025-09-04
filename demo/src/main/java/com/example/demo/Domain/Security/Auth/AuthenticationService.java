@@ -17,7 +17,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        UserModel user = new UserModel(request.getPassword(), request.getEmail(), request.getRole());
+        UserModel user = new UserModel(request.getPassword(), request.getUserId(), request.getRole());
         return new AuthenticationResponse(jwtService.generateToken(user));
     }
 }

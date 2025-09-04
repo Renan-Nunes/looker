@@ -46,7 +46,7 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
 
     role_map = {"admin": "ADMIN", "user": "USER"}
     payload = {
-        "name": db_user.nome,
+        "userId": db_user.id,
         "password": user.senha,
         "role": role_map.get(db_user.role.value, "USER")
     }

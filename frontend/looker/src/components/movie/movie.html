@@ -27,6 +27,10 @@
                 <span class="detail-label">Duração:</span>
                 <span class="detail-value">{{movie?.duracao_minutos}} minutos</span>
             </div>
+            <div class="detail-item">
+                <span class="detail-label">Preco:</span>
+                <span class="detail-value">{{movie?.preco_aluguel}} R$</span>
+            </div>
         </section>
 
         <button class="rent-button" type="button" (click)="rentMovie()">

@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.schemas.aluguel import AluguelCreateSchema, AluguelSchema
+from app.schemas.aluguel import AluguelCreateSchema, AluguelSchema, AluguelSchemaPayment
 from app.services.aluguel_service import AluguelService
 from app.core.database import get_db
 from app.core.security import User, get_current_user
@@ -10,12 +10,12 @@ import requests
 router = APIRouter()
 aluguel_service = AluguelService()
 
-@router.post("/", response_model=AluguelSchema, status_code=201)
+@router.post("/", response_model=AluguelSchemaPayment, status_code=201)
 def create_aluguel(
     aluguel: AluguelCreateSchema,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
-):
+):  
     try:
         db_aluguel = aluguel_service.create(
             db=db,
@@ -38,14 +38,15 @@ def create_aluguel(
                 "X-User-Role": current_user.role
             }
         )
-        payment_response.raise_for_status() 
+        payment_response.raise_for_status()
+        pagamento_data = payment_response.json()
 
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=503, detail=f"Erro ao comunicar com payment: {e}")
 
     return {
         "aluguel": db_aluguel,
-        "pagamento": payment_response.json()
+        "pagamento": pagamento_data
     }
 
 
