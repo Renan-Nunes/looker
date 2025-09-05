@@ -16,7 +16,7 @@ export class LoginService {
   register(data: RegisterModel) {
     console.log(data);
     return this.http.post(
-      '/gateway/user/api/v1/users',
+      '/gateway/user/api/v1/users/',
       {
         nome: data.nome,
         cpf: data.cpf,

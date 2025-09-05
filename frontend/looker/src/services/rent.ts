@@ -13,6 +13,7 @@ export class Rent {
   }
 
   getRents(filmeId: number): Observable<any[]> {
+      console.log('chegou')
       // @ts-ignore
       return this.http.post(
         '/gateway/rent/v1/alugueis/',

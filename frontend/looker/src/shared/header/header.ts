@@ -35,9 +35,10 @@ export class Header {
       next: (response) => {
         // @ts-ignore
         localStorage.setItem("jwt", String(response.token));
+        alert('Login realizado com sucesso!');
       },
       error: (error) => {
-        console.error('Falha no login', error);
+        alert('Falha no login, tente novamente mais tarde!');
       }
     });
   }
@@ -48,7 +49,7 @@ export class Header {
         alert('Registro Concluido!');
       },
       error: (error) => {
-        console.error('Falha no login', error);
+        alert('Falha no Registro');
       }
     });
   }

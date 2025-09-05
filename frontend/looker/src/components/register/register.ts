@@ -25,7 +25,7 @@ export class Register {
 
   registerForm = new FormGroup({
     username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     cpf: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
     phone: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(11)]),
@@ -34,6 +34,7 @@ export class Register {
 
   openModal() {
     this.isVisible = true;
+    localStorage.removeItem('jwt')
     setTimeout(() => document.getElementById('username')?.focus(), 300);
   }
 
