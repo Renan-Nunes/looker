@@ -1,7 +1,7 @@
-import { HttpInterceptor } from './http-interceptor';
+import { authInterceptor } from './http-interceptor';
 
-describe('HttpInterceptor', () => {
-  it('should create an instance', () => {
-    expect(new HttpInterceptor()).toBeTruthy();
+describe('authInterceptor', () => {
+  it('should be defined', () => {
+    expect(authInterceptor).toBeDefined();
   });
 });
