@@ -1,27 +1,52 @@
-import { Component, signal } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
-import { Header } from '../shared/header/header';
+import { Component, AfterViewInit, NgZone } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import gsap from 'gsap';
+import { Header } from '../shared/header/header';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-root',
-  imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    FormsModule,
-    CommonModule,
-    Header,
-    RouterOutlet,
-  ],
+  standalone: true,
+  imports: [RouterOutlet, Header],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('looker');
+export class App implements AfterViewInit {
+  constructor(private zone: NgZone) {}
+
+  ngAfterViewInit() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.globalTimeline.timeScale(0);
+    }
+    this.zone.runOutsideAngular(() => this.startGrain());
+  }
+
+  private startGrain() {
+    const canvas = document.getElementById('grain') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d')!;
+    let w = 0, h = 0;
+
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const tick = () => {
+      if (!w || !h) { requestAnimationFrame(tick); return; }
+      const d = ctx.createImageData(w, h);
+      const b = d.data;
+      for (let i = 0; i < b.length; i += 4) {
+        const v = Math.random() * 255;
+        b[i] = b[i + 1] = b[i + 2] = v;
+        b[i + 3] = 16 + Math.random() * 22;
+      }
+      ctx.putImageData(d, 0, 0);
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }
 }
