@@ -107,6 +107,7 @@ export class Movie implements OnInit, AfterViewInit, OnDestroy {
         alert(`Devolução prevista: ${new Date(iso).toLocaleDateString('pt-BR')}`);
       },
       error: (err: any) => {
+        this.rentLoading = false;
         if (err.status === 401) { alert('Faça login para alugar.'); return; }
         alert('Erro ao alugar. Tente novamente.');
       },
