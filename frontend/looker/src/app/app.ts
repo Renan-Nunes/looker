@@ -1,11 +1,13 @@
-import {Component, NgIterable, signal} from '@angular/core';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {Header} from '../shared/header/header';
-import {Dashboard} from '../components/dashboard/dashboard';
-import {RouterOutlet} from '@angular/router';
-import {Register} from '../shared/register/register';
+import { Component, signal } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { Header } from '../shared/header/header';
+import { RouterOutlet } from '@angular/router';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-root',
@@ -14,15 +16,12 @@ import {Register} from '../shared/register/register';
     MatFormFieldModule,
     FormsModule,
     CommonModule,
-    FormsModule,
     Header,
-    RouterOutlet
+    RouterOutlet,
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-
   protected readonly title = signal('looker');
-
 }
