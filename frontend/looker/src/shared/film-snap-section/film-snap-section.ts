@@ -1,6 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter,
-  AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild
+  Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -84,12 +83,14 @@ export class FilmSnapSection implements AfterViewInit, OnDestroy {
   }
 
   leave() {
-    const label   = this.labelEl?.nativeElement;
-    const title   = this.titleEl?.nativeElement;
-    const meta    = this.metaEl?.nativeElement;
-    const actions = this.actionsEl?.nativeElement;
-    gsap.to([label, meta, actions], { opacity: 0, y: -16, duration: 0.35, ease: 'power2.in' });
-    gsap.to(title, { opacity: 0, y: -30, duration: 0.4, ease: 'power2.in' });
+    this.zone.runOutsideAngular(() => {
+      const label   = this.labelEl?.nativeElement;
+      const title   = this.titleEl?.nativeElement;
+      const meta    = this.metaEl?.nativeElement;
+      const actions = this.actionsEl?.nativeElement;
+      gsap.to([label, meta, actions], { opacity: 0, y: -16, duration: 0.35, ease: 'power2.in' });
+      gsap.to(title, { opacity: 0, y: -30, duration: 0.4, ease: 'power2.in' });
+    });
   }
 
   ngAfterViewInit() {
