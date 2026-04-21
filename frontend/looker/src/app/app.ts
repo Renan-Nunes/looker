@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, NgZone } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, NgZone } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from '../shared/header/header';
 import { gsap } from 'gsap';
@@ -13,40 +13,51 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements AfterViewInit {
+export class App implements AfterViewInit, OnDestroy {
+  private resizeHandler!: () => void;
+  private rafHandle = 0;
+
   constructor(private zone: NgZone) {}
 
   ngAfterViewInit() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.globalTimeline.timeScale(0);
+      gsap.defaults({ duration: 0 });
     }
     this.zone.runOutsideAngular(() => this.startGrain());
   }
 
   private startGrain() {
     const canvas = document.getElementById('grain') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d')!;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     let w = 0, h = 0;
 
-    const resize = () => {
+    this.resizeHandler = () => {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
     };
-    resize();
-    window.addEventListener('resize', resize);
+    this.resizeHandler();
+    window.addEventListener('resize', this.resizeHandler, { passive: true });
 
     const tick = () => {
-      if (!w || !h) { requestAnimationFrame(tick); return; }
-      const d = ctx.createImageData(w, h);
-      const b = d.data;
-      for (let i = 0; i < b.length; i += 4) {
-        const v = Math.random() * 255;
-        b[i] = b[i + 1] = b[i + 2] = v;
-        b[i + 3] = 16 + Math.random() * 22;
+      if (w && h) {
+        const d = ctx.createImageData(w, h);
+        const b = d.data;
+        for (let i = 0; i < b.length; i += 4) {
+          const v = Math.random() * 255;
+          b[i] = b[i + 1] = b[i + 2] = v;
+          b[i + 3] = 16 + Math.random() * 22;
+        }
+        ctx.putImageData(d, 0, 0);
       }
-      ctx.putImageData(d, 0, 0);
-      requestAnimationFrame(tick);
+      this.rafHandle = requestAnimationFrame(tick);
     };
     tick();
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeHandler);
+    cancelAnimationFrame(this.rafHandle);
   }
 }
