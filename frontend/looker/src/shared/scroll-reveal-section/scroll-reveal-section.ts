@@ -9,7 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   styles: [`:host { display: block; }`]
 })
 export class ScrollRevealSection implements AfterViewInit, OnDestroy {
-  private ctx!: gsap.Context;
+  private ctx: gsap.Context | undefined;
 
   constructor(private el: ElementRef<HTMLElement>, private zone: NgZone) {}
 
