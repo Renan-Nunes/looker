@@ -13,6 +13,7 @@ export class FilmIntro implements AfterViewInit, OnDestroy {
   @Output() dismissed = new EventEmitter<void>();
 
   private tl: gsap.core.Timeline | undefined;
+  private exitTl: gsap.core.Tween | undefined;
   private isDismissed = false;
 
   constructor(private zone: NgZone) {}
@@ -35,8 +36,8 @@ export class FilmIntro implements AfterViewInit, OnDestroy {
     if (this.isDismissed) return;
     this.isDismissed = true;
     this.tl?.kill();
-    this.dismissed.emit();  // emit immediately
-    gsap.to('#intro', {
+    this.zone.run(() => this.dismissed.emit());
+    this.exitTl = gsap.to('#intro', {
       scale: 1.06, opacity: 0, duration: 0.6, ease: 'power3.in'
     });
   }
@@ -44,5 +45,8 @@ export class FilmIntro implements AfterViewInit, OnDestroy {
   @HostListener('document:keydown')
   onKeydown() { this.dismiss(); }
 
-  ngOnDestroy() { this.tl?.kill(); }
+  ngOnDestroy() {
+    this.tl?.kill();
+    this.exitTl?.kill();
+  }
 }
