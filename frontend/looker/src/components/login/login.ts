@@ -1,61 +1,80 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
-import {CommonModule, NgIf} from '@angular/common';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatError, MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
-import {MatIcon} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
+import {
+  Component, EventEmitter, HostListener, Input, Output
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RegisterModel } from '../../models/register-model';
+
+export type LoginTab = 'login' | 'register';
 
 @Component({
   selector: 'app-login',
-  imports: [
-    MatFormFieldModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule
-  ],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
-  @Output() loginSubmit = new EventEmitter<{username: string, password: string, remember: boolean}>();
+  @Input()  startVisible = false;
+  @Output() loginSubmit    = new EventEmitter<{ username: string; password: string; remember: boolean }>();
+  @Output() registerSubmit = new EventEmitter<RegisterModel>();
+  @Output() closed         = new EventEmitter<void>();
 
-  isVisible = false;
+  activeTab: LoginTab = 'login';
+
   loginForm = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
     remember: new FormControl(false)
   });
 
-  openModal() {
-    this.isVisible = true;
-    setTimeout(() => document.getElementById('username')?.focus(), 300);
-  }
+  registerForm = new FormGroup({
+    username:    new FormControl('', Validators.required),
+    email:       new FormControl('', [Validators.required, Validators.email]),
+    password:    new FormControl('', [Validators.required, Validators.minLength(8)]),
+    cpf:         new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
+    phone:       new FormControl('', [Validators.required, Validators.minLength(10)]),
+    dateOfBirth: new FormControl('', Validators.required),
+  });
+
+  setTab(tab: LoginTab) { this.activeTab = tab; }
 
   closeModal() {
-    this.isVisible = false;
     this.loginForm.reset();
+    this.registerForm.reset();
+    this.activeTab = 'login';
+    this.closed.emit();
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      // @ts-ignore
-      this.loginSubmit.emit(this.loginForm.value);
-      this.closeModal();
-    }
-  }
-
-  onOverlayClick(event: Event) {
-    if (event.target === event.currentTarget) {
-      this.closeModal();
-    }
+  onOverlayClick(e: Event) {
+    if (e.target === e.currentTarget) this.closeModal();
   }
 
   @HostListener('document:keydown.escape')
-  onEscapeKey() {
-    if (this.isVisible) {
-      this.closeModal();
-    }
+  onEscape() { this.closeModal(); }
+
+  onLoginSubmit() {
+    if (!this.loginForm.valid) return;
+    const v = this.loginForm.value;
+    this.loginSubmit.emit({
+      username: v.username!, password: v.password!, remember: v.remember ?? false
+    });
+    this.closeModal();
+  }
+
+  onRegisterSubmit() {
+    if (!this.registerForm.valid) return;
+    const v = this.registerForm.value;
+    const data: RegisterModel = {
+      nome:            v.username   ?? '',
+      email:           v.email      ?? '',
+      senha:           v.password   ?? '',
+      cpf:             v.cpf        ?? '',
+      telefone:        v.phone      ?? '',
+      data_nascimento: new Date(v.dateOfBirth ?? ''),
+      role:            'user'
+    };
+    this.registerSubmit.emit(data);
+    this.closeModal();
   }
 }
-

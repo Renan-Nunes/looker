@@ -1,39 +1,55 @@
-<div class="modal-overlay"
-     [class.active]="isVisible"
-     (click)="onOverlayClick($event)">
+<div class="modal-overlay" (click)="onOverlayClick($event)">
   <div class="modal">
-    <div class="modal-header">
-      <button class="close-button" (click)="closeModal()">&times;</button>
+    <div class="modal-shine"></div>
+
+    <!-- TABS -->
+    <div class="modal-tabs">
+      <button class="tab" [class.active]="activeTab === 'login'"    (click)="setTab('login')">Entrar</button>
+      <button class="tab" [class.active]="activeTab === 'register'" (click)="setTab('register')">Criar conta</button>
     </div>
 
-    <div class="modal-content">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-        <div class="form-row">
-          <div class="form-group username">
-            <label class="form-label" for="username">Email</label>
-            <input type="text"
-                   id="username"
-                   formControlName="username"
-                   class="form-input"
-                   placeholder="Email">
-          </div>
+    <!-- LOGIN FORM -->
+    <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="modal-form">
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input class="form-input" type="email" formControlName="username" placeholder="seu@email.com" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input class="form-input" type="password" formControlName="password" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="btn-submit" type="submit">Entrar</button>
+    </form>
 
-          <div class="form-group password">
-            <label class="form-label" for="password">Senha</label>
-            <input type="password"
-                   id="password"
-                   formControlName="password"
-                   class="form-input"
-                   placeholder="Sua senha">
-          </div>
+    <!-- REGISTER FORM -->
+    <form *ngIf="activeTab === 'register'" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="modal-form">
+      <div class="form-group">
+        <label class="form-label">Nome completo</label>
+        <input class="form-input" type="text" formControlName="username" placeholder="Seu nome" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input class="form-input" type="email" formControlName="email" placeholder="seu@email.com" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input class="form-input" type="password" formControlName="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">CPF</label>
+        <input class="form-input" type="text" formControlName="cpf" placeholder="00000000000" maxlength="11" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Telefone</label>
+        <input class="form-input" type="tel" formControlName="phone" placeholder="00000000000" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Data de nascimento</label>
+        <input class="form-input" type="date" formControlName="dateOfBirth" />
+      </div>
+      <button class="btn-submit" type="submit">Criar conta</button>
+    </form>
 
-          <div class="form-group">
-            <button type="submit"
-                    [disabled]="!loginForm.valid"
-                    class="submit-button">Entrar</button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <button class="modal-close" (click)="closeModal()" aria-label="Fechar">&#x2715;</button>
   </div>
 </div>
