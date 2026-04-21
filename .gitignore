@@ -6,3 +6,8 @@ alugueis-service/app/core/__pycache__/config.cpython-313.pyc
 alugueis-service/app/core/__pycache__/database.cpython-313.pyc
 alugueis-service/app/models/__pycache__/__init__.cpython-313.pyc
 alugueis-service/app/models/__pycache__/aluguel.cpython-313.pyc
+
+# Git worktrees
+.worktrees/
+.superpowers/
+.claude/
