@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FilmSnapSection } from './film-snap-section';
 import { FilmeModel } from '../../models/filme-model';
 import { Router } from '@angular/router';
+import { gsap } from 'gsap';
 
 const mockFilm: FilmeModel = {
   id: 2, titulo: 'ANORA', genero: 'Romance', ano: new Date('2024-01-01'),
@@ -16,6 +17,10 @@ describe('FilmSnapSection', () => {
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
+    spyOn(gsap, 'context').and.returnValue({ revert: () => {} } as any);
+    spyOn(gsap, 'to').and.returnValue({} as any);
+    spyOn(gsap, 'fromTo').and.returnValue({} as any);
+
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     await TestBed.configureTestingModule({
       imports: [FilmSnapSection],
