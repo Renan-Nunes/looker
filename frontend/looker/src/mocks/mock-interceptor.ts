@@ -21,13 +21,15 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   if (req.method === 'POST' && url.includes('/alugueis/')) {
+    const filmeId = (req.body as any)?.filme_id;
+    const filme = MOCK_FILMES.find(f => f.id === filmeId) ?? MOCK_FILMES[0];
     const devolucao = new Date();
     devolucao.setDate(devolucao.getDate() + 7);
     return of(new HttpResponse({
       status: 200,
       body: {
         aluguel: { data_prevista_devolucao: devolucao.toISOString() },
-        pagamento: { aluguel_id: 'MOCK-001', amount: 9.99 },
+        pagamento: { aluguel_id: 'MOCK-001', amount: filme.preco_aluguel },
       },
     }));
   }

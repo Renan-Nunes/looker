@@ -2,11 +2,10 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import {provideRouter, withRouterConfig} from '@angular/router';
 
 import { routes } from './app.routes';
-import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors} from '@angular/common/http';
-import {authInterceptor} from '../security/http-interceptor';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from '../security/http-interceptor';
 import { mockInterceptor } from '../mocks/mock-interceptor';
 
-// @ts-ignore
 // @ts-ignore
 export const appConfig: ApplicationConfig = {
   providers: [
