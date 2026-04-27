@@ -22,7 +22,8 @@
     <!-- ── SEC 1: HERO ── -->
     <section class="panel hero" data-section="hero">
       <div class="hero-bg panel-bg">
-        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <img *ngIf="film.imagem_url" class="hero-bg-img" [src]="film.imagem_url" [alt]="film.titulo" />
+        <svg class="hero-bg-grade" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient [id]="gradId" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%"   [attr.stop-color]="palette.c1"/>

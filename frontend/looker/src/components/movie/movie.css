@@ -58,6 +58,18 @@
 .panel-bg { position: absolute; inset: 0; will-change: transform; }
 .panel-bg svg { width: 100%; height: 100%; display: block; }
 
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.hero-bg-grade { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0.55; }
+
 .hero { height: 100vh; min-height: 700px; display: flex; align-items: flex-end; }
 
 .vignette-lr {
