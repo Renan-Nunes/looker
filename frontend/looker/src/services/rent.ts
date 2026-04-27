@@ -12,7 +12,7 @@ export class Rent {
     this.http = http;
   }
 
-  getRents(filmeId: number): Observable<any[]> {
+  getRents(filmeId: number): Observable<any> {
       console.log('chegou')
       // @ts-ignore
       return this.http.post(

@@ -31,8 +31,10 @@
     "@angular/platform-browser": "^20.2.0",
     "@angular/router": "^20.2.0",
     "dependencies": "^0.0.1",
+    "gsap": "^3.15.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "vanilla-tilt": "^1.8.1",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -40,6 +42,7 @@
     "@angular/cli": "^20.2.0",
     "@angular/compiler-cli": "^20.2.0",
     "@types/jasmine": "~5.1.0",
+    "@types/vanilla-tilt": "^1.4.1",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
