@@ -38,7 +38,7 @@ describe('mockInterceptor', () => {
 
   it('POST /users/ retorna 200', (done) => {
     http.post('/gateway/user/api/v1/users/', {}).subscribe((res) => {
-      expect(res).toBeDefined();
+      expect(res).toEqual({});
       done();
     });
     httpTesting.expectNone('/gateway/user/api/v1/users/');
