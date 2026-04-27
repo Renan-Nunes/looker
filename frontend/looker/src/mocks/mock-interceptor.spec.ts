@@ -74,7 +74,7 @@ describe('mockInterceptor', () => {
     http.post<any>('/gateway/rent/v1/alugueis/', { filme_id: 1 }).subscribe((res) => {
       expect(res.aluguel.data_prevista_devolucao).toBeDefined();
       expect(res.pagamento.aluguel_id).toBe('MOCK-001');
-      expect(res.pagamento.amount).toBe(9.99);
+      expect(res.pagamento.amount).toBe(MOCK_FILMES[0].preco_aluguel);
       done();
     });
     httpTesting.expectNone('/gateway/rent/v1/alugueis/');
