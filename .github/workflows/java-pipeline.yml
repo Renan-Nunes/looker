@@ -1,0 +1,132 @@
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'ApiGateway/**'
+      - 'demo/**'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'ApiGateway/**'
+      - 'demo/**'
+
+jobs:
+  build-apigateway:
+    name: Build & Test ApiGateway
+    runs-on: self-hosted
+
+    steps:
+      - id: checkout
+        name: Checkout source code
+        uses: actions/checkout@v4
+
+      - id: setup-java
+        name: Set up Java 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - id: cache-gradle
+        name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('ApiGateway/**/*.gradle*', 'ApiGateway/**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - id: build-no-tests
+        name: Build ApiGateway (skip tests)
+        run: cd ApiGateway && ./gradlew build -x test
+
+      - id: test
+        name: Run ApiGateway tests
+        run: cd ApiGateway && ./gradlew test
+
+      - id: upload-test-results
+        name: Upload ApiGateway test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apigateway-test-results
+          path: ApiGateway/build/test-results/**/*.xml
+
+      - id: coverage
+        name: Check ApiGateway code coverage (minimum 70%)
+        run: cd ApiGateway && ./gradlew jacocoTestReport jacocoTestCoverageVerification
+
+      - id: sonarqube
+        name: SonarQube scan for ApiGateway
+        uses: sonarsource/sonarqube-scan-action@v5
+        with:
+          projectBaseDir: ApiGateway
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - id: docker-build
+        name: Build ApiGateway Docker image
+        run: docker build -t looker/api-gateway:${{ github.sha }} ApiGateway/
+
+  build-demo:
+    name: Build & Test Demo
+    runs-on: self-hosted
+
+    steps:
+      - id: checkout
+        name: Checkout source code
+        uses: actions/checkout@v4
+
+      - id: setup-java
+        name: Set up Java 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - id: cache-maven
+        name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('demo/**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - id: build-no-tests
+        name: Build Demo (skip tests)
+        run: cd demo && ./mvnw package -DskipTests
+
+      - id: test
+        name: Run Demo tests
+        run: cd demo && ./mvnw test
+
+      - id: upload-test-results
+        name: Upload Demo test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-test-results
+          path: demo/target/surefire-reports/**/*.xml
+
+      - id: coverage
+        name: Check Demo code coverage (minimum 70%)
+        run: cd demo && ./mvnw jacoco:report jacoco:check
+
+      - id: sonarqube
+        name: SonarQube scan for Demo
+        uses: sonarsource/sonarqube-scan-action@v5
+        with:
+          projectBaseDir: demo
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - id: docker-build
+        name: Build Demo Docker image
+        run: docker build -t looker/demo:${{ github.sha }} demo/
