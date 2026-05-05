@@ -138,7 +138,13 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner'
+                    sh '''
+                        sonar-scanner \
+                          -Dsonar.projectKey=looker \
+                          -Dsonar.projectName="Looker" \
+                          -Dsonar.sources=. \
+                          -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/__pycache__/**,**/alembic/**,**/build/**,**/target/**
+                    '''
                 }
             }
         }
